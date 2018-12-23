@@ -3,48 +3,25 @@
 <head>
   <title>My OS Platform</title>
 </head>
-<body style="background-color:rgba(0,0,0,0);">
-    <h1>Hi all</h1>
+<body id="the_body" style="width: 100%; height: 100%; position: relative; top:0; bottom:0;">
 
-
-
-
-
-
+<webview id="test_website" src="https://flutter.io/" name="test_website" style="width: 100%; height:100%;">
+</webview>
 
 <script>
-// get the system platform using node.js
-var os = require('os');
-document.write('You are running on ', os.platform());
+// make it fulllscreen
+var win = nw.Window.get();
+win.maximize();
 
-// make menu
-var your_menu = new nw.Menu({ type: 'menubar' });
+setTimeout(function(){
+    document.getElementById("the_body").style.width = win.width + "px";
+    document.getElementById("the_body").style.height = win.height + "px";
+}, 3000);
 
-var submenu = new nw.Menu();
-submenu.append(new nw.MenuItem({ label: 'Item A' }));
-submenu.append(new nw.MenuItem({ label: 'Item B' }));
-
-your_menu.append(new nw.MenuItem({
-  label: 'First Menu',
-  submenu: submenu
-}));
-
-nw.Window.get().menu = your_menu;
-
-
-// Create a tray icon
-var tray = new nw.Tray({ title: 'Tray', icon: 'img/icon.png' });
-
-// Give it a menu
-var menu = new nw.Menu();
-menu.append(new nw.MenuItem({ type: 'checkbox', label: 'box1' }));
-tray.menu = menu;
-
-
-
-
-
-
+nw.Window.get().on('resize', function (width, height) { 
+    document.getElementById("the_body").style.width = win.width + "px";
+    document.getElementById("the_body").style.height = win.height + "px";
+});
 
 </script>
 </body>
